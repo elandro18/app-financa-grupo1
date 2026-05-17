@@ -23,19 +23,23 @@ export default function Home() {
           </button>
         </div>
       </nav>   
-      <main className="w-full flex items-center justify-center gap-8 p-8">
-        <div className="flex-1">
-          <p className="text-lg text-gray-700 mb-6">
-            Experimente mais liberdade no controle da sua vida financeira. Crie sua conta com a gente!
-          </p>
-        </div>        
-        <div className="flex-1">         
+      <main className="flex flex-col lg:flex-row items-center justify-center gap-4 pt-24">
+        <div className=" max-w-2xl">
+          <h3 className="text-center text-4xl font-semibold leading-normal my-8">
+            Experimente mais liberdade no controle da sua vida financeira. 
+          </h3>
+          <h4 className="text-center text-4xl font-semibold leading-normal my-8 hidden lg:block">
+            Crie sua conta com a gente!
+          </h4>
+        </div>
+        <div className="flex justify-center">
           <Image 
-            src="/bannerimage1.png" 
+            src="/bytebank1.png" 
             alt="Banco Digital" 
-            width={600}
-            height={600}
-            className=""
+            width={500}
+            height={500}
+            className="w-full max-w-xl h-auto object-contain"
+            sizes="(max-width: 1024px) 100vw, 600px"
           />
         </div>
       </main>
