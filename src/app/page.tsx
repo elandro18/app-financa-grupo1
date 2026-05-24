@@ -42,7 +42,7 @@ export default function Home() {
           </div>
           <div className="flex justify-center lg:pr-20">
             <Image 
-              src="/bytebank1.png" 
+              src="/bytebank.png" 
               alt="Banco Digital" 
               width={500}
               height={500}
@@ -51,23 +51,23 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className="flex flex-col lg:flex-row pt-12 lg:px-24 lg:pb-24 items-center justify-center">
-          <div className="flex flex-col items-center px-4 mt-12"> 
+        <div className="flex flex-col lg:flex-row lg:px-18 lg:py-18 items-center">
+          <div className="flex flex-col items-center px-4"> 
             <GiftIcon className="size-12 text-green-500"/>
             <h1 className="text-center text-3xl pt-4">Conta e cartão gratuitos</h1>
             <p className="text-center text-2xl pt-2">Isso mesmo, nossa conta é digital, sem custo fixo e mais que isso: sem tarifa de manutenção.</p>
           </div>
-          <div className="flex flex-col items-center px-4 mt-12">
+          <div className="flex flex-col items-center px-4">
             <BanknotesIcon className="size-12 text-green-500"/>
             <h1 className="text-center text-3xl pt-4">Saques sem custo</h1>
             <p className="text-center text-2xl pt-2">Você pode sacar gratuitamente 4x por mês de qualquer Banco 24h.</p>
           </div>
-          <div className="flex flex-col items-center px-4 mt-12">
+          <div className="flex flex-col items-center px-4">
             <CurrencyDollarIcon className="size-12 text-green-500"/>
             <h1 className="text-center text-3xl pt-4">Programa de pontos</h1>
             <p className="text-center text-2xl pt-2">Você pode acumular pontos com suas compras no crédito sem pagar mensalidade!</p>
           </div>
-          <div className="flex flex-col items-center px-4 mt-12">
+          <div className="flex flex-col items-center px-4">
             <ComputerDesktopIcon className="size-12 text-green-500"/>
             <h1 className="text-center text-3xl pt-4">Seguro Dispositivos</h1>
             <p className="text-center text-2xl pt-2">Seus dispositivos móveis (computador e laptop) protegidos por uma mensalidade simbólica.</p>
