@@ -20,14 +20,22 @@ export function ServicesCard() {
             onClick={() => setOpen(true)}
             className="w-36 h-32 bg-gray-50 border border-gray-200 rounded-md flex flex-col items-center justify-center gap-3 hover:bg-gray-100 cursor-pointer"
           >
-            <ArrowRightLeft aria-hidden size={32} className="text-emerald-600" />
+            <ArrowRightLeft
+              aria-hidden
+              size={32}
+              style={{ color: "var(--bb-primary, #374C34)" }}
+            />
             <span className="text-sm font-semibold">Nova transação</span>
           </button>
           <Link
             href="/extrato"
             className="w-36 h-32 bg-gray-50 border border-gray-200 rounded-md flex flex-col items-center justify-center gap-3 hover:bg-gray-100 cursor-pointer"
           >
-            <ReceiptText aria-hidden size={32} className="text-emerald-600" />
+            <ReceiptText
+              aria-hidden
+              size={32}
+              style={{ color: "var(--bb-primary, #374C34)" }}
+            />
             <span className="text-sm font-semibold">Extrato</span>
           </Link>
         </div>

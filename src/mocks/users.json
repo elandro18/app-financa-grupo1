@@ -11,7 +11,6 @@
         "type": "Conta Corrente",
         "balance": 2500
       },
-      "today": "Quinta-feira, 08/09/2024",
       "transactions": [
         { "id": "1", "type": "Depósito", "amount": 150, "date": "18/11/2022" },
         { "id": "2", "type": "Depósito", "amount": 100, "date": "21/11/2022" },
@@ -30,7 +29,6 @@
         "type": "Conta Corrente",
         "balance": 7820
       },
-      "today": "Quinta-feira, 08/09/2024",
       "transactions": [
         { "id": "1", "type": "Depósito", "amount": 3000, "date": "05/01/2024" },
         { "id": "2", "type": "Transferência", "amount": -1200, "date": "12/02/2024" },
@@ -50,7 +48,6 @@
         "type": "Conta Poupança",
         "balance": 15340
       },
-      "today": "Quinta-feira, 08/09/2024",
       "transactions": [
         { "id": "1", "type": "Depósito", "amount": 5000, "date": "10/06/2024" },
         { "id": "2", "type": "Depósito", "amount": 2500, "date": "22/06/2024" },

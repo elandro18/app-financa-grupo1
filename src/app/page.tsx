@@ -9,22 +9,28 @@ import { ComputerDesktopIcon } from '@heroicons/react/24/outline'
 export default function Home() {
   return (
     <div className="pai min-h-screen bg-slate-100 overflow-x-hidden">
-      <nav className="w-full flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-16 p-4 bg-black text-white">
-        {/* Logo/Branding */}
-        <div className="text-xl font-bold">🟩 ByteFinanceBank</div>
-  
+      <nav className="w-full flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-16 p-4 bg-[var(--bb-primary)] text-white">
+        {/* Logo from the Design System (SVG — no quality loss on any screen) */}
+        <img
+          src="/bytebank-logo.svg"
+          alt="ByteFinanceBank"
+          width={146}
+          height={32}
+          className="h-8 w-auto object-contain"
+        />
+
         {/* Links do Menu */}
         <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-sm sm:text-base">
           <a href="#" className="hover:text-gray-300 cursor-pointer">Sobre</a>
           <a href="#" className="hover:text-gray-300 cursor-pointer">Serviços</a>
         </div>
-        
+
         {/* Botões */}
         <div className="flex flex-wrap justify-center gap-3">
-          <button className="px-3 py-2 text-sm sm:px-4 sm:py-2 bg-green-500 text-black rounded font-bold hover:bg-green-600 cursor-pointer">
+          <button className="px-3 py-2 text-sm sm:px-4 sm:py-2 bg-[var(--bb-warning)] text-[var(--bb-dark)] rounded font-bold hover:opacity-90 cursor-pointer">
             Abrir minha conta
           </button>
-          <button className="px-3 py-2 text-sm sm:px-4 sm:py-2 border border-white text-white rounded font-bold hover:bg-white hover:text-black cursor-pointer">
+          <button className="px-3 py-2 text-sm sm:px-4 sm:py-2 border border-white text-white rounded font-bold hover:bg-white hover:text-[var(--bb-dark)] cursor-pointer">
             Já tenho conta
           </button>
         </div>
@@ -53,22 +59,22 @@ export default function Home() {
         </div>
         <div className="flex flex-col lg:flex-row lg:px-18 lg:py-18 items-center">
           <div className="flex flex-col items-center px-4"> 
-            <GiftIcon className="size-12 text-green-500"/>
+            <GiftIcon className="size-12 text-[var(--bb-warning)]"/>
             <h1 className="text-center text-lg pt-4">Conta e cartão gratuitos</h1>
             <p className="text-center text-sm pt-2">Isso mesmo, nossa conta é digital, sem custo fixo e mais que isso: sem tarifa de manutenção.</p>
           </div>
           <div className="flex flex-col items-center px-4">
-            <BanknotesIcon className="size-12 text-green-500"/>
+            <BanknotesIcon className="size-12 text-[var(--bb-warning)]"/>
             <h1 className="text-center text-lg pt-4">Saques sem custo</h1>
             <p className="text-center text-sm pt-2">Você pode sacar gratuitamente 4x por mês de qualquer Banco 24h.</p>
           </div>
           <div className="flex flex-col items-center px-4">
-            <CurrencyDollarIcon className="size-12 text-green-500"/>
+            <CurrencyDollarIcon className="size-12 text-[var(--bb-warning)]"/>
             <h1 className="text-center text-lg pt-4">Programa de pontos</h1>
             <p className="text-center text-sm pt-2">Você pode acumular pontos com suas compras no crédito sem pagar mensalidade!</p>
           </div>
           <div className="flex flex-col items-center px-4">
-            <ComputerDesktopIcon className="size-12 text-green-500"/>
+            <ComputerDesktopIcon className="size-12 text-[var(--bb-warning)]"/>
             <h1 className="text-center text-lg pt-4">Seguro Dispositivos</h1>
             <p className="text-center text-sm pt-2">Seus dispositivos móveis (computador e laptop) protegidos por uma mensalidade simbólica.</p>
           </div>
