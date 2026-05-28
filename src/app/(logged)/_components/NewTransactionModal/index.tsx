@@ -13,31 +13,35 @@ function toDisplayDate(isoDate: string) {
  * Wraps bb-new-transaction-modal.
  *
  * The WC is only mounted when `open` is true so that its internal bb-modal
- * (which uses position:fixed on :host) never blocks events while the modal
- * is closed. This is a defense-in-depth measure alongside the DS fix that
- * adds display:none to :host(:not([open])).
+ * (which uses position:fixed on :host) never blocks pointer events while closed.
+ *
+ * Bug that was here before: useEffect had [] deps, so it ran once on mount
+ * when open=false and ref.current=null — listeners were never attached.
+ * Fix: depend on `open` so the effect re-runs when the element is in the DOM,
+ * and pass `open` declaratively so Lit handles visibility without imperatively
+ * setting el.open.
  */
 export function NewTransactionModal({ open, onClose }: Props) {
   const { addTransaction } = useTransactions();
   const ref = useRef<HTMLElement>(null);
 
+  // Keep latest callbacks in refs so event handlers never go stale.
   const addTransactionRef = useRef(addTransaction);
   addTransactionRef.current = addTransaction;
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
 
+  // Runs whenever `open` changes. When open=true the element is already in the
+  // DOM (rendered below), so ref.current is guaranteed to be set.
   useEffect(() => {
     const el = ref.current as any;
     if (!el) return;
-
-    // Set open immediately so Lit renders the backdrop on this paint
-    el.open = true;
 
     const handleSubmit = (e: Event) => {
       const { type, amount, date } = (e as CustomEvent).detail as {
         type: string;
         amount: number;
-        date: string; // YYYY-MM-DD from the WC
+        date: string; // YYYY-MM-DD from the date input inside the WC
       };
       addTransactionRef.current({
         type,
@@ -54,11 +58,12 @@ export function NewTransactionModal({ open, onClose }: Props) {
       el.removeEventListener("submit", handleSubmit);
       el.removeEventListener("close", handleClose);
     };
-  }, []);
+  }, [open]); // re-run when open toggles so listeners are wired to the element
 
   // Only mount the WC when the modal should be visible.
-  // This prevents bb-modal's position:fixed :host from blocking page events.
   if (!open) return null;
 
-  return <bb-new-transaction-modal ref={ref} />;
+  // Pass open declaratively — Lit reads the attribute on connect and shows
+  // bb-modal without needing an imperative el.open = true call.
+  return <bb-new-transaction-modal ref={ref} open />;
 }
