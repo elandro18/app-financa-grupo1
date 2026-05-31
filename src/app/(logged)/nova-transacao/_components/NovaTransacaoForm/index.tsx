@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useTransactions } from "@/contexts/Transactions";
+import { getCurrentUser } from "@/lib/auth";
 
 function toDisplayDate(iso: string): string {
   const [y, m, d] = iso.split("-");
@@ -23,15 +24,30 @@ export function NovaTransacaoForm() {
     if (!el) return;
 
     const handleSubmit = (e: Event) => {
-      const { type, amount, date, agency, account, pixKey } = (e as CustomEvent).detail as {
+      const { type, amount, date, description, agency, account, pixKey } = (e as CustomEvent).detail as {
         type: string;
         amount: number;
         date: string; // YYYY-MM-DD from the WC date input
+        description?: string;
         agency?: string;
         account?: string;
         pixKey?: string;
       };
-      addTransactionRef.current({ type, amount, date: toDisplayDate(date), agency, account, pixKey });
+
+      // Saque and Depósito to own account don't carry ag/conta from the WC —
+      // enrich here with the logged-in user's own account data.
+      const needsOwnAccount = type === 'Saque' || (type === 'Depósito' && amount > 0);
+      const ownAccount = needsOwnAccount ? getCurrentUser().account : null;
+
+      addTransactionRef.current({
+        type,
+        amount,
+        date: toDisplayDate(date),
+        description,
+        agency:  ownAccount ? ownAccount.agency  : agency,
+        account: ownAccount ? ownAccount.number  : account,
+        pixKey,
+      });
       router.push("/home");
     };
 
