@@ -3,12 +3,14 @@
 // `react` rather than an ambient replacement that wipes all existing exports.
 export {};
 
+import type { CSSProperties } from 'react';
+
 type BbBaseProps = {
   ref?: unknown;
   key?: string | number;
   id?: string;
   class?: string;
-  style?: string | Record<string, string | number>;
+  style?: string | CSSProperties | Record<string, string | number>;
   'aria-label'?: string;
   'aria-hidden'?: boolean | 'true' | 'false';
   children?: unknown;
@@ -60,6 +62,7 @@ declare module 'react' {
       'bb-new-transaction-modal': BbBaseProps & {
         open?: boolean;
       };
+      'bb-new-transaction-list': BbBaseProps;
       'bb-transaction-detail-modal': BbBaseProps & {
         open?: boolean;
       };

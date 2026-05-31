@@ -24,7 +24,7 @@ export default function LoggedLayout({ children }: { children: ReactNode }) {
         </div>
       </header>
 
-      <div className="flex-1 w-full max-w-7xl mx-auto px-8 py-8 grid grid-cols-[180px_1fr] gap-6">
+      <div className="flex-1 w-full max-w-7xl mx-auto px-8 py-8 grid grid-cols-[220px_minmax(0,1fr)] gap-6">
         {/* Loads the DS Web Component library on the client side only */}
         <DsLoader />
         <Sidebar />

@@ -14,6 +14,8 @@ export default function NotFound() {
             width={400}
             height={400}
             alt="Página não encontrada"
+            loading="eager"
+            priority
             className="w-full max-w-xs sm:max-w-sm h-auto object-contain"
           />
           <h1 className="text-center text-2xl font-semibold leading-snug">
