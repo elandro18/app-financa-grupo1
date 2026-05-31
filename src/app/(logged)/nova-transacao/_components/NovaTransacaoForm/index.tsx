@@ -23,12 +23,15 @@ export function NovaTransacaoForm() {
     if (!el) return;
 
     const handleSubmit = (e: Event) => {
-      const { type, amount, date } = (e as CustomEvent).detail as {
+      const { type, amount, date, agency, account, pixKey } = (e as CustomEvent).detail as {
         type: string;
         amount: number;
         date: string; // YYYY-MM-DD from the WC date input
+        agency?: string;
+        account?: string;
+        pixKey?: string;
       };
-      addTransactionRef.current({ type, amount, date: toDisplayDate(date) });
+      addTransactionRef.current({ type, amount, date: toDisplayDate(date), agency, account, pixKey });
       router.push("/home");
     };
 
