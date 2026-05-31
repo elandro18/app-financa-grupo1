@@ -15,7 +15,7 @@ function DetailModal({
   onClose,
 }: {
   transaction: Transaction;
-  onSave: (id: string, type: string, description: string) => void;
+  onSave: (id: string, description: string, amount: number, date: string) => void;
   onDelete: (id: string) => void;
   onClose: () => void;
 }) {
@@ -35,8 +35,8 @@ function DetailModal({
     el.open = true;
 
     const handleSave = (e: Event) => {
-      const { id, type, description } = (e as CustomEvent).detail;
-      onSaveRef.current(id, type, description);
+      const { id, description, amount, date } = (e as CustomEvent).detail;
+      onSaveRef.current(id, description, amount, date);
     };
     const handleDelete = (e: Event) => {
       onDeleteRef.current((e as CustomEvent).detail.id);
@@ -79,8 +79,8 @@ export function RecentTransactionsCard() {
     return () => el.removeEventListener("transaction-select", handler);
   }, []);
 
-  const handleSave = (id: string, type: string, description: string) => {
-    updateTransaction(id, { type, description });
+  const handleSave = (id: string, description: string, amount: number, date: string) => {
+    updateTransaction(id, { description, amount, date });
     setActiveTx(null);
   };
 

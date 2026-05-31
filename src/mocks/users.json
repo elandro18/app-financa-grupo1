@@ -12,10 +12,10 @@
         "balance": 2500
       },
       "transactions": [
-        { "id": "1", "type": "Depósito", "amount": 150, "date": "18/11/2022" },
-        { "id": "2", "type": "Depósito", "amount": 100, "date": "21/11/2022" },
-        { "id": "3", "type": "Depósito", "amount": 50, "date": "21/11/2022" },
-        { "id": "4", "type": "Transferência", "amount": -500, "date": "21/11/2022" }
+        { "id": "1", "type": "Depósito",          "amount":  150, "date": "18/11/2022", "description": "Salário parcial",       "agency": "0001-5", "account": "1234567-8" },
+        { "id": "2", "type": "Depósito",          "amount":  100, "date": "21/11/2022", "description": "Freelance design",      "agency": "0023-4", "account": "9876543-2" },
+        { "id": "3", "type": "Depósito",          "amount":   50, "date": "21/11/2022",                                         "agency": "0015-7", "account": "5432198-6" },
+        { "id": "4", "type": "Transferência Pix", "amount": -500, "date": "21/11/2022", "description": "Aluguel novembro",      "pixKey": "joao.silva@email.com" }
       ]
     },
     {
@@ -30,11 +30,11 @@
         "balance": 7820
       },
       "transactions": [
-        { "id": "1", "type": "Depósito", "amount": 3000, "date": "05/01/2024" },
-        { "id": "2", "type": "Transferência", "amount": -1200, "date": "12/02/2024" },
-        { "id": "3", "type": "Depósito", "amount": 800, "date": "20/03/2024" },
-        { "id": "4", "type": "Transferência", "amount": -250, "date": "02/04/2024" },
-        { "id": "5", "type": "Depósito", "amount": 470, "date": "15/05/2024" }
+        { "id": "1", "type": "Depósito",          "amount":  3000, "date": "05/01/2024", "description": "Salário janeiro",        "agency": "0042-3", "account": "7654321-0" },
+        { "id": "2", "type": "Transferência Pix", "amount": -1200, "date": "12/02/2024", "description": "Pagamento fornecedor",   "pixKey": "11.222.333/0001-44" },
+        { "id": "3", "type": "Depósito",          "amount":   800, "date": "20/03/2024", "description": "Reembolso despesas",     "agency": "0042-3", "account": "7654321-0" },
+        { "id": "4", "type": "Saque",             "amount":  -250, "date": "02/04/2024",                                          "agency": "0007-1", "account": "3216549-5" },
+        { "id": "5", "type": "Depósito",          "amount":   470, "date": "15/05/2024", "description": "Venda marketplace",     "agency": "0042-3", "account": "7654321-0" }
       ]
     },
     {
@@ -49,10 +49,10 @@
         "balance": 15340
       },
       "transactions": [
-        { "id": "1", "type": "Depósito", "amount": 5000, "date": "10/06/2024" },
-        { "id": "2", "type": "Depósito", "amount": 2500, "date": "22/06/2024" },
-        { "id": "3", "type": "Transferência", "amount": -340, "date": "01/07/2024" },
-        { "id": "4", "type": "Transferência", "amount": -820, "date": "18/07/2024" }
+        { "id": "1", "type": "Depósito",          "amount":  5000, "date": "10/06/2024", "description": "Aporte poupança",        "agency": "0088-2", "account": "9988776-3" },
+        { "id": "2", "type": "Depósito",          "amount":  2500, "date": "22/06/2024", "description": "Bônus semestral",        "agency": "0088-2", "account": "9988776-3" },
+        { "id": "3", "type": "Transferência Pix", "amount":  -340, "date": "01/07/2024", "description": "Conta de água/luz",      "pixKey": "concessionaria@pagamentos.com.br" },
+        { "id": "4", "type": "Transferência Pix", "amount":  -820, "date": "18/07/2024", "description": "Parcela empréstimo",     "pixKey": "+5511999990000" }
       ]
     }
   ]

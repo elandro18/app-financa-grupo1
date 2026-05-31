@@ -4,6 +4,9 @@ export type Transaction = {
   amount: number;
   date: string;
   description?: string;
+  agency?: string;
+  account?: string;
+  pixKey?: string;
 };
 
 export type Props = {
