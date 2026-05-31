@@ -38,7 +38,7 @@ function Editor({ transaction, onClose }: EditorProps) {
   };
 
   return (
-    <Modal open onClose={onClose} ariaLabel="Detalhar transação">
+    <Modal open onClose={onClose} ariaLabel="Editar transação">
       <ModalHeader
         icon={<CreditCard size={64} />}
         title="Edite os campos abaixo para realizar sua operação!"

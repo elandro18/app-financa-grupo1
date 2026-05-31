@@ -21,18 +21,25 @@ export function PublicNavbar() {
 
       {/* Links */}
       <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-sm sm:text-base">
-        <a href="#" className="hover:text-gray-300 cursor-pointer">Sobre</a>
-        <a href="#" className="hover:text-gray-300 cursor-pointer">Serviços</a>
+        <Link href="/sobre" className="hover:text-gray-300">Sobre</Link>
+        <Link href="/servicos" className="hover:text-gray-300">Serviços</Link>
       </div>
 
       {/* Botões */}
       <div className="flex flex-wrap justify-center gap-3">
-        <button className="px-3 py-2 text-sm sm:px-4 sm:py-2 bg-[var(--bb-warning)] text-[var(--bb-dark)] rounded font-bold hover:opacity-90 cursor-pointer">
+        <Link
+          href="/abrir-conta"
+          className="px-3 py-2 text-sm sm:px-4 sm:py-2 bg-[var(--bb-warning)] text-[var(--bb-dark)] rounded font-bold hover:opacity-90"
+        >
           Abrir minha conta
-        </button>
-        <button className="px-3 py-2 text-sm sm:px-4 sm:py-2 border border-white text-white rounded font-bold hover:bg-white hover:text-[var(--bb-dark)] cursor-pointer">
+        </Link>
+        {/* TODO: replace href with /login once authentication is built */}
+        <Link
+          href="/home"
+          className="px-3 py-2 text-sm sm:px-4 sm:py-2 border border-white text-white rounded font-bold hover:bg-white hover:text-[var(--bb-dark)]"
+        >
           Já tenho conta
-        </button>
+        </Link>
       </div>
     </nav>
   );

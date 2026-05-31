@@ -21,11 +21,13 @@ export default function Home() {
             </h4>
           </div>
           <div className="flex justify-center lg:pr-20">
-            <Image 
-              src="/bytebank.png" 
-              alt="Banco Digital" 
+            <Image
+              src="/bytebank.png"
+              alt="Banco Digital"
               width={500}
               height={500}
+              loading="eager"
+              priority
               className="w-full max-w-xl h-auto object-contain"
               sizes="(max-width: 1024px) 100vw, 600px"
             />
