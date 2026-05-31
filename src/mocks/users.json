@@ -9,12 +9,14 @@
       },
       "account": {
         "type": "Conta Corrente",
-        "balance": 2500
+        "balance": 2500,
+        "agency": "5544",
+        "number": "32393-8"
       },
       "transactions": [
-        { "id": "1", "type": "Depósito",          "amount":  150, "date": "18/11/2022", "description": "Salário parcial",       "agency": "0001-5", "account": "1234567-8" },
-        { "id": "2", "type": "Depósito",          "amount":  100, "date": "21/11/2022", "description": "Freelance design",      "agency": "0023-4", "account": "9876543-2" },
-        { "id": "3", "type": "Depósito",          "amount":   50, "date": "21/11/2022",                                         "agency": "0015-7", "account": "5432198-6" },
+        { "id": "1", "type": "Depósito",          "amount":  150, "date": "18/11/2022", "description": "Salário parcial",       "agency": "5544",   "account": "32393-8" },
+        { "id": "2", "type": "Depósito",          "amount": -100, "date": "21/11/2022", "description": "Freelance design",      "agency": "0023-4", "account": "9876543-2" },
+        { "id": "3", "type": "Depósito",          "amount":  -50, "date": "21/11/2022",                                         "agency": "0015-7", "account": "5432198-6" },
         { "id": "4", "type": "Transferência Pix", "amount": -500, "date": "21/11/2022", "description": "Aluguel novembro",      "pixKey": "joao.silva@email.com" }
       ]
     },
@@ -27,7 +29,9 @@
       },
       "account": {
         "type": "Conta Corrente",
-        "balance": 7820
+        "balance": 7820,
+        "agency": "0042-3",
+        "number": "7654321-0"
       },
       "transactions": [
         { "id": "1", "type": "Depósito",          "amount":  3000, "date": "05/01/2024", "description": "Salário janeiro",        "agency": "0042-3", "account": "7654321-0" },
@@ -46,7 +50,9 @@
       },
       "account": {
         "type": "Conta Poupança",
-        "balance": 15340
+        "balance": 15340,
+        "agency": "0088-2",
+        "number": "9988776-3"
       },
       "transactions": [
         { "id": "1", "type": "Depósito",          "amount":  5000, "date": "10/06/2024", "description": "Aporte poupança",        "agency": "0088-2", "account": "9988776-3" },
