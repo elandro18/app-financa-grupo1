@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useTransactions } from "@/contexts/Transactions";
 import type { Transaction } from "@/app/(logged)/_components/TransactionDetailModal/types";
+import { setMaxDateInputInShadow } from "@/lib/webcomponent";
 
 /**
  * Thin wrapper that bridges bb-transaction-detail-modal with React context.
@@ -32,6 +33,7 @@ function DetailModal({
     if (!el) return;
     el.transaction = transaction;
     el.open = true;
+    setMaxDateInputInShadow(el);
 
     const handleSave = (e: Event) => {
       const { id, description, amount, date } = (e as CustomEvent).detail;
