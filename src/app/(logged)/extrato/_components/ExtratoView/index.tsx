@@ -61,20 +61,38 @@ export default function ExtratoView() {
   const { transactions, updateTransaction, deleteTransaction } =
     useTransactions();
   const [activeTx, setActiveTx] = useState<Transaction | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [query, setQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
   const listRef = useRef<HTMLElement>(null);
 
-  const totalPages = Math.max(1, Math.ceil(transactions.length / itemsPerPage));
+  // Filter transactions by description when searching
+  const filtered = searchTerm
+    ? transactions.filter((t) =>
+        (t.description ?? "").toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : transactions;
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / itemsPerPage));
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedTransactions = transactions.slice(startIndex, startIndex + itemsPerPage);
+  const paginatedTransactions = filtered.slice(startIndex, startIndex + itemsPerPage);
 
   useEffect(() => {
-    if (currentPage > totalPages) {
-      setCurrentPage(totalPages);
-    }
+    if (currentPage > totalPages) setCurrentPage(totalPages);
   }, [currentPage, totalPages]);
+
+  // Reset to first page when search term changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm]);
+
+  // Debounce the query input: wait 3s after the last keystroke to apply search
+  useEffect(() => {
+    const id = setTimeout(() => setSearchTerm(query), 1000);
+    return () => clearTimeout(id);
+  }, [query]);
 
   // Sync items — bb-transaction-list will group them by month
   useEffect(() => {
@@ -107,9 +125,20 @@ export default function ExtratoView() {
       <main className="bg-white/60 rounded-md p-10 max-w-xl w-full">
         <h1 className="text-2xl font-bold text-center mb-8">Extrato</h1>
 
-        <div className="mb-4 text-sm text-slate-600">
-          Exibindo {Math.min(startIndex + 1, transactions.length)}-{Math.min(startIndex + itemsPerPage, transactions.length)} de {transactions.length} transações
-        </div>
+          <div className="mb-4 flex items-center justify-between gap-4">
+            <input
+              aria-label="Pesquisar transações"
+              placeholder="Pesquisar por descrição"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="flex-1 rounded-md border border-slate-300 px-3 py-2 text-sm"
+            />
+
+            <div className="text-sm text-slate-600">
+              Exibindo {filtered.length === 0 ? 0 : Math.min(startIndex + 1, filtered.length)}-
+              {Math.min(startIndex + itemsPerPage, filtered.length)} de {filtered.length} transações
+            </div>
+          </div>
 
         {/* group-by-month handled entirely inside bb-transaction-list */}
         <bb-transaction-list ref={listRef} group-by-month={true} />
