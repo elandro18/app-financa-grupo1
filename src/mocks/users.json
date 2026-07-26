@@ -17,7 +17,18 @@
         { "id": "1", "type": "Depósito",          "amount":  150, "date": "18/11/2022", "description": "Salário parcial",       "agency": "5544",   "account": "32393-8" },
         { "id": "2", "type": "Depósito",          "amount": -100, "date": "21/11/2022", "description": "Freelance design",      "agency": "0023-4", "account": "9876543-2" },
         { "id": "3", "type": "Depósito",          "amount":  -50, "date": "21/11/2022",                                         "agency": "0015-7", "account": "5432198-6" },
-        { "id": "4", "type": "Transferência Pix", "amount": -500, "date": "21/11/2022", "description": "Aluguel novembro",      "pixKey": "joao.silva@email.com" }
+        { "id": "4", "type": "Transferência Pix", "amount": -500, "date": "21/11/2022", "description": "Aluguel novembro",      "pixKey": "joao.silva@email.com" },
+        { "id": "5", "type": "Saque",             "amount": -80,  "date": "22/11/2022", "description": "Saque 24h",             "agency": "5544",   "account": "32393-8" },
+        { "id": "6", "type": "Depósito",          "amount":  230, "date": "23/11/2022", "description": "Reembolso supermercado", "agency": "5544",   "account": "32393-8" },
+        { "id": "7", "type": "Transferência Pix", "amount": -90,  "date": "24/11/2022", "description": "Mensalidade academia",  "pixKey": "academia@teste.com" },
+        { "id": "8", "type": "Depósito",          "amount":  300, "date": "25/11/2022", "description": "Venda de produto",      "agency": "5544",   "account": "32393-8" },
+        { "id": "9", "type": "Transferência Pix", "amount": -120, "date": "26/11/2022", "description": "Conta de luz",          "pixKey": "energia@teste.com" },
+        { "id": "10", "type": "Saque",            "amount": -60,  "date": "27/11/2022", "description": "Saque caixa eletrônico", "agency": "5544",   "account": "32393-8" },
+        { "id": "11", "type": "Depósito",         "amount":  410, "date": "28/11/2022", "description": "Bonificação cliente",   "agency": "5544",   "account": "32393-8" },
+        { "id": "12", "type": "Transferência Pix","amount": -150, "date": "29/11/2022", "description": "Pagamento condomínio",  "pixKey": "condominio@teste.com" },
+        { "id": "13", "type": "Depósito",         "amount":  95,  "date": "30/11/2022", "description": "Renda extra",           "agency": "5544",   "account": "32393-8" },
+        { "id": "14", "type": "Saque",            "amount": -40,  "date": "01/12/2022", "description": "Saque app",             "agency": "5544",   "account": "32393-8" },
+        { "id": "15", "type": "Transferência Pix","amount": -75,  "date": "02/12/2022", "description": "Parcela celular",       "pixKey": "celular@teste.com" }
       ]
     },
     {

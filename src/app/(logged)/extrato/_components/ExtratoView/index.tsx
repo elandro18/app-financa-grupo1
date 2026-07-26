@@ -59,14 +59,26 @@ export default function ExtratoView() {
   const { transactions, updateTransaction, deleteTransaction } =
     useTransactions();
   const [activeTx, setActiveTx] = useState<Transaction | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   const listRef = useRef<HTMLElement>(null);
+
+  const totalPages = Math.max(1, Math.ceil(transactions.length / itemsPerPage));
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedTransactions = transactions.slice(startIndex, startIndex + itemsPerPage);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
 
   // Sync items — bb-transaction-list will group them by month
   useEffect(() => {
     const el = listRef.current as any;
-    if (el) el.items = transactions;
-  }, [transactions]);
+    if (el) el.items = paginatedTransactions;
+  }, [paginatedTransactions]);
 
   // transaction-select on the list
   useEffect(() => {
@@ -92,8 +104,54 @@ export default function ExtratoView() {
     <>
       <main className="bg-white/60 rounded-md p-10 max-w-xl w-full">
         <h1 className="text-2xl font-bold text-center mb-8">Extrato</h1>
+
+        <div className="mb-4 text-sm text-slate-600">
+          Exibindo {Math.min(startIndex + 1, transactions.length)}-{Math.min(startIndex + itemsPerPage, transactions.length)} de {transactions.length} transações
+        </div>
+
         {/* group-by-month handled entirely inside bb-transaction-list */}
         <bb-transaction-list ref={listRef} group-by-month={true} />
+
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+          <span className="text-sm font-medium text-slate-600">
+            Página {currentPage} de {totalPages}
+          </span>
+
+          <button
+            type="button"
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className="rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Anterior
+          </button>
+
+          <div className="flex items-center gap-2">
+            {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
+              <button
+                key={page}
+                type="button"
+                onClick={() => setCurrentPage(page)}
+                className={`h-9 w-9 rounded-md text-sm font-medium ${
+                  currentPage === page
+                    ? "bg-slate-900 text-white"
+                    : "border border-slate-300 text-slate-700"
+                }`}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+            disabled={currentPage === totalPages}
+            className="rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Próxima
+          </button>
+        </div>
       </main>
 
       {/* Only mount when a transaction is selected */}
