@@ -6,13 +6,33 @@ import { useTransactions } from "@/contexts/Transactions";
 import { brl } from "@/lib/format";
 import { computeBalanceOverTime } from "../helpers";
 import { EmptyChartState } from "../EmptyState";
+import type { BalancePoint } from "../types";
 
 const LINE_COLOR = "var(--bb-primary, #374C34)";
+
+/**
+ * Collapses consecutive points that share the same `date`, keeping only the
+ * last one (i.e. the end-of-day balance). This is purely a chart-rendering
+ * concern (avoids duplicate X-axis labels) — it does not change
+ * `computeBalanceOverTime`'s one-point-per-transaction contract.
+ */
+function collapseConsecutiveSameDate(points: BalancePoint[]): BalancePoint[] {
+  const result: BalancePoint[] = [];
+  for (const point of points) {
+    const last = result[result.length - 1];
+    if (last && last.date === point.date) {
+      result[result.length - 1] = point;
+    } else {
+      result.push(point);
+    }
+  }
+  return result;
+}
 
 export function SaldoEvolucaoChart() {
   const { transactions, balance } = useTransactions();
   const data = useMemo(
-    () => computeBalanceOverTime(transactions, balance),
+    () => collapseConsecutiveSameDate(computeBalanceOverTime(transactions, balance)),
     [transactions, balance]
   );
 
