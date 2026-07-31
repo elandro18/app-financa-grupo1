@@ -1,4 +1,5 @@
 import { EntradasSaidasChart } from "./EntradasSaidasChart";
+import { GastosPorTipoChart } from "./GastosPorTipoChart";
 
 export function FinancialCharts() {
   return (
@@ -9,6 +10,11 @@ export function FinancialCharts() {
         <div>
           <h3 className="text-sm font-semibold mb-3">Entradas vs Saídas por mês</h3>
           <EntradasSaidasChart />
+        </div>
+
+        <div>
+          <h3 className="text-sm font-semibold mb-3">Distribuição de gastos por tipo</h3>
+          <GastosPorTipoChart />
         </div>
       </div>
     </section>
