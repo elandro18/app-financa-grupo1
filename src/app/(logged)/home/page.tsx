@@ -3,6 +3,7 @@ import { getTodayFormatted } from "@/lib/format";
 import { BalanceCard } from "./_components/BalanceCard";
 import { RecentTransactionsCard } from "./_components/RecentTransactionsCard";
 import { ServicesCard } from "./_components/ServicesCard";
+import { FinancialCharts } from "./_components/FinancialCharts";
 
 export default function HomePage() {
   const { user, account } = getCurrentUser();
@@ -17,6 +18,7 @@ export default function HomePage() {
           accountType={account.type}
         />
         <ServicesCard />
+        <FinancialCharts />
       </main>
 
       <RecentTransactionsCard />
