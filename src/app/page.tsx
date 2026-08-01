@@ -1,6 +1,26 @@
+"use client";
+
 import Image from "next/image";
+import { RegisterModal } from "./components/RegisterModal";
+import { SuccessModal } from "./components/SuccessModal";
+import { useState } from "react";
+import { LoginModal } from "./components/LoginModal";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [loginError, setLoginError] = useState("");
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const router = useRouter();
+
+  const handleSuccessClose = () => {
+    setShowSuccessModal(false);
+    router.push("/home");
+  };
+
   return (
     <div className="pai">
       <nav className="w-full flex items-center justify-center gap-16 p-4 bg-black text-white">
@@ -15,12 +35,22 @@ export default function Home() {
         
         {/* Botões */}
         <div className="flex gap-3">
-          <button className="px-4 py-2 bg-green-500 text-black rounded font-bold hover:bg-green-600 cursor-pointer">
+          <button 
+            onClick={() => setShowRegisterModal(true)}
+            className="px-4 py-2 bg-green-500 text-black rounded font-bold hover:bg-green-600 cursor-pointer"
+          >
             Abrir minha conta
           </button>
-          <button className="px-4 py-2 border border-white text-white rounded font-bold hover:bg-white hover:text-black cursor-pointer">
-            Já tenho conta
-          </button>
+         
+            <button
+               onClick={() => { 
+                setShowLoginModal(true);
+                setLoginError("");
+               }}
+              className="px-4 py-2 border border-white text-white rounded font-bold hover:bg-white hover:text-black cursor-pointer">
+              Já tenho conta
+            </button>
+         
         </div>
       </nav>   
       <main className="flex flex-col lg:flex-row items-center justify-center gap-4 pt-24">
@@ -43,6 +73,73 @@ export default function Home() {
           />
         </div>
       </main>
+      {/* Modal de Registro */}
+      <RegisterModal
+        open={showRegisterModal}
+        onClose={() => setShowRegisterModal(false)}
+        onSubmit={async (data) => {
+          try {
+            const response = await fetch("/api/register", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data),
+            });
+            
+            const result = await response.json();
+            console.log("Resposta do servidor:", result);
+            if (result.success) {
+              setShowRegisterModal(false);
+              setSuccessMessage("Cadastro realizado com sucesso! Você será redirecionado para a área logada.");
+              setShowSuccessModal(true);
+            } else {
+              alert(result.message);
+            }
+          } catch (error) {
+            console.error("Erro ao cadastrar:", error);
+          }
+        }}
+      />
+      {/* Modal de Login */}
+      <LoginModal
+        open={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+        errorMessage={loginError}
+        onReset={() => setLoginError("")}
+        onCadastroClick={() => {
+          setShowLoginModal(false);
+          setShowRegisterModal(true);
+          setLoginError("");
+        }}
+        onSubmit={async (data) => {
+         try {
+            const response = await fetch("/api/login", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data),
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+              setShowLoginModal(false);
+              setSuccessMessage("Login realizado com sucesso! Você será redirecionado para a área logada.");
+              setShowSuccessModal(true);
+            } else {
+              setLoginError(result.message);
+            }
+          } catch (error) {
+            console.error("Erro ao fazer login:", error);
+            setLoginError("Erro ao fazer login");
+          }
+        }}
+      />
+      {/* Modal de Sucesso */}
+      <SuccessModal
+        open={showSuccessModal}
+        message={successMessage}
+        onClose={handleSuccessClose}
+        redirectIn={2}
+      />
     </div>
     
   );

@@ -13,10 +13,30 @@
       },
       "today": "Quinta-feira, 08/09/2024",
       "transactions": [
-        { "id": "1", "type": "Depósito", "amount": 150, "date": "18/11/2022" },
-        { "id": "2", "type": "Depósito", "amount": 100, "date": "21/11/2022" },
-        { "id": "3", "type": "Depósito", "amount": 50, "date": "21/11/2022" },
-        { "id": "4", "type": "Transferência", "amount": -500, "date": "21/11/2022" }
+        {
+          "id": "1",
+          "type": "Depósito",
+          "amount": 150,
+          "date": "18/11/2022"
+        },
+        {
+          "id": "2",
+          "type": "Depósito",
+          "amount": 100,
+          "date": "21/11/2022"
+        },
+        {
+          "id": "3",
+          "type": "Depósito",
+          "amount": 50,
+          "date": "21/11/2022"
+        },
+        {
+          "id": "4",
+          "type": "Transferência",
+          "amount": -500,
+          "date": "21/11/2022"
+        }
       ]
     },
     {
@@ -32,11 +52,36 @@
       },
       "today": "Quinta-feira, 08/09/2024",
       "transactions": [
-        { "id": "1", "type": "Depósito", "amount": 3000, "date": "05/01/2024" },
-        { "id": "2", "type": "Transferência", "amount": -1200, "date": "12/02/2024" },
-        { "id": "3", "type": "Depósito", "amount": 800, "date": "20/03/2024" },
-        { "id": "4", "type": "Transferência", "amount": -250, "date": "02/04/2024" },
-        { "id": "5", "type": "Depósito", "amount": 470, "date": "15/05/2024" }
+        {
+          "id": "1",
+          "type": "Depósito",
+          "amount": 3000,
+          "date": "05/01/2024"
+        },
+        {
+          "id": "2",
+          "type": "Transferência",
+          "amount": -1200,
+          "date": "12/02/2024"
+        },
+        {
+          "id": "3",
+          "type": "Depósito",
+          "amount": 800,
+          "date": "20/03/2024"
+        },
+        {
+          "id": "4",
+          "type": "Transferência",
+          "amount": -250,
+          "date": "02/04/2024"
+        },
+        {
+          "id": "5",
+          "type": "Depósito",
+          "amount": 470,
+          "date": "15/05/2024"
+        }
       ]
     },
     {
@@ -52,11 +97,60 @@
       },
       "today": "Quinta-feira, 08/09/2024",
       "transactions": [
-        { "id": "1", "type": "Depósito", "amount": 5000, "date": "10/06/2024" },
-        { "id": "2", "type": "Depósito", "amount": 2500, "date": "22/06/2024" },
-        { "id": "3", "type": "Transferência", "amount": -340, "date": "01/07/2024" },
-        { "id": "4", "type": "Transferência", "amount": -820, "date": "18/07/2024" }
+        {
+          "id": "1",
+          "type": "Depósito",
+          "amount": 5000,
+          "date": "10/06/2024"
+        },
+        {
+          "id": "2",
+          "type": "Depósito",
+          "amount": 2500,
+          "date": "22/06/2024"
+        },
+        {
+          "id": "3",
+          "type": "Transferência",
+          "amount": -340,
+          "date": "01/07/2024"
+        },
+        {
+          "id": "4",
+          "type": "Transferência",
+          "amount": -820,
+          "date": "18/07/2024"
+        }
       ]
+    },
+    {
+      "login": "elandro.caniela",
+      "password": "1365941003Ewc",
+      "user": {
+        "firstName": "elandro",
+        "fullName": "elandro caniela"
+      },
+      "account": {
+        "type": "Conta Corrente",
+        "balance": 0
+      },
+      "today": "terça-feira, 26/05/2026",
+      "transactions": []
+    },
+    {
+      "login": "classen.ana",
+      "password": "128389127@A",
+      "user": {
+        "firstName": "Ana",
+        "fullName": "Ana Timm classen"
+      },
+      "account": {
+        "type": "Conta Corrente",
+        "balance": 0
+      },
+      "today": "terça-feira, 26/05/2026",
+      "transactions": []
     }
+
   ]
 }
