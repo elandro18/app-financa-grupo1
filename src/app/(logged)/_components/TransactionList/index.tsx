@@ -34,12 +34,12 @@ export function TransactionList({
               onClick={() => onSelect(tx)}
               className="text-blue-600 underline text-xs cursor-pointer"
             >
-              Detalhar transação
+              Editar transação
             </button>
             <button
               type="button"
               onClick={() => onSelect(tx)}
-              aria-label={`Detalhar transação ${tx.type} ${tx.date}`}
+              aria-label={`Editar transação ${tx.type} ${tx.date}`}
               className="text-blue-600 cursor-pointer"
             >
               <ChevronRight size={16} />
