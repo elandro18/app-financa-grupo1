@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AccountAccessButton } from "./AccountAccessButton";
 
 /**
  * Shared navbar for public pages (home and not-found).
@@ -28,18 +29,12 @@ export function PublicNavbar() {
       {/* Botões */}
       <div className="flex flex-wrap justify-center gap-3">
         <Link
-          href="/abrir-conta"
+          href="/cadastro"
           className="px-3 py-2 text-sm sm:px-4 sm:py-2 bg-[var(--bb-warning)] text-[var(--bb-dark)] rounded font-bold hover:opacity-90"
         >
           Abrir minha conta
         </Link>
-        {/* TODO: replace href with /login once authentication is built */}
-        <Link
-          href="/home"
-          className="px-3 py-2 text-sm sm:px-4 sm:py-2 border border-white text-white rounded font-bold hover:bg-white hover:text-[var(--bb-dark)]"
-        >
-          Já tenho conta
-        </Link>
+        <AccountAccessButton />
       </div>
     </nav>
   );

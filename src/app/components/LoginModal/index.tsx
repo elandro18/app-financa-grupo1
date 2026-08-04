@@ -11,7 +11,7 @@ import type { Props, LoginFormData } from "./types";
 export function LoginModal({ open, onClose, onSubmit, errorMessage, onCadastroClick, onReset }: Props) {
   
   const [formData, setFormData] = useState<LoginFormData>({
-    login: "",
+    email: "",
     password: "",
   });
 
@@ -33,7 +33,7 @@ export function LoginModal({ open, onClose, onSubmit, errorMessage, onCadastroCl
   };
   const handleReset = () => {
     setFormData({
-      login: "",
+      email: "",
       password: "",
     });
     setErrors({});
@@ -62,7 +62,7 @@ export function LoginModal({ open, onClose, onSubmit, errorMessage, onCadastroCl
 
   const handleClose = () => {
     setFormData({
-      login: "",
+      email: "",
       password: "",
     });
     setErrors({});
@@ -83,17 +83,17 @@ export function LoginModal({ open, onClose, onSubmit, errorMessage, onCadastroCl
     )}
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        {/* Login */}
-        <Field label="Login">
+        {/* Email */}
+        <Field label="Email">
           <input
-            type="text"
-            name="login"
-            value={formData.login}
+            type="email"
+            name="email"
+            value={formData.email}
             onChange={handleChange}
-            placeholder="Digite seu login"
+            placeholder="Digite seu email"  
             className={INPUT_CLS}
           />
-          {errors.login && <span className="text-red-500 text-xs">{errors.login}</span>}
+          {errors.email && <span className="text-red-500 text-xs">{errors.email}</span>}
         </Field>
 
         {/* Senha */}

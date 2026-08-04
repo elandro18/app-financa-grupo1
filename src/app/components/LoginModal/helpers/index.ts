@@ -4,8 +4,8 @@ import type { LoginFormData } from "../types";
 export const validateLoginForm = (data: LoginFormData): Record<string, string> => {
   const errors: Record<string, string> = {};
 
-  if (!data.login.trim()) {
-    errors.login = "Login é obrigatório";
+  if (!data.email.trim()) {
+    errors.email = "Email é obrigatório";
   }
 
   if (!data.password) {
