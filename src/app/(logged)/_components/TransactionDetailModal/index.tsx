@@ -11,6 +11,30 @@ import type { Transaction } from "./types";
 
 export type { Transaction } from "./types";
 
+function toISODate(date: string) {
+  const [day, month, year] = date.split("/");
+  return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+}
+
+function toDisplayDate(isoDate: string) {
+  const [year, month, day] = isoDate.split("-");
+  return `${day}/${month}/${year}`;
+}
+
+function getTodayISODate() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = `${now.getMonth() + 1}`.padStart(2, "0");
+  const day = `${now.getDate()}`.padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function isFutureDate(value: string, today: string) {
+  const valueDate = new Date(`${value}T00:00:00`);
+  const todayDate = new Date(`${today}T00:00:00`);
+  return valueDate.getTime() > todayDate.getTime();
+}
+
 export function TransactionDetailModal({ transaction, onClose }: Props) {
   if (!transaction) return null;
   return <Editor transaction={transaction} onClose={onClose} />;
@@ -25,10 +49,33 @@ function Editor({ transaction, onClose }: EditorProps) {
   const { updateTransaction, deleteTransaction } = useTransactions();
   const [type, setType] = useState(transaction.type);
   const [description, setDescription] = useState(transaction.description ?? "");
+  const [date, setDate] = useState(() => toISODate(transaction.date));
+  const [dateError, setDateError] = useState("");
+  const todayISODate = getTodayISODate();
+
+  const validateDate = (value: string) => {
+    if (!value) {
+      setDateError("Não é possível selecionar datas futuras");
+      return false;
+    }
+
+    if (isFutureDate(value, todayISODate)) {
+      setDateError("Não é possível selecionar datas futuras");
+      return false;
+    }
+
+    setDateError("");
+    return true;
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    updateTransaction(transaction.id, { type, description });
+
+    if (!validateDate(date)) {
+      return;
+    }
+
+    updateTransaction(transaction.id, { type, description, date: toDisplayDate(date) });
     onClose();
   };
 
@@ -75,11 +122,17 @@ function Editor({ transaction, onClose }: EditorProps) {
 
         <Field label="Data Operação">
           <input
-            type="text"
-            defaultValue={transaction.date}
-            disabled
-            className={INPUT_DISABLED_CLS}
+            type="date"
+            value={date}
+            max={todayISODate}
+            onChange={(e) => {
+              const nextDate = e.target.value;
+              setDate(nextDate);
+              validateDate(nextDate);
+            }}
+            className={INPUT_CLS}
           />
+          {dateError ? <p className="mt-1 text-sm text-red-600">{dateError}</p> : null}
         </Field>
 
         <button type="submit" className={`mt-4 ${BTN_PRIMARY_CLS}`}>
