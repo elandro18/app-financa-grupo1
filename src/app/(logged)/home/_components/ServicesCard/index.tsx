@@ -20,6 +20,7 @@ export function ServicesCard() {
           />
           <span className="text-sm font-semibold">Nova transação</span>
         </Link>
+        
         <Link href="/extrato" className={CARD_CLS}>
           <ReceiptText
             aria-hidden

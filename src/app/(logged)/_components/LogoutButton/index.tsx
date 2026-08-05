@@ -4,9 +4,15 @@
 // --bb-secondary scoped inline so only this button's shadow root gets
 // the amber colour; other secondary buttons on the page are unaffected.
 import { useRouter } from "next/navigation";
+import { clearSession } from "@/lib/session";
 
 export function LogoutButton() {
   const router = useRouter();
+
+  const handleLogout = () => {
+    clearSession();
+    router.push("/");
+  };
 
   return (
     <bb-button
@@ -18,7 +24,7 @@ export function LogoutButton() {
         "--button-hover-bg":    "var(--bb-primary, #374C34)",
         "--button-hover-color": "var(--bb-warning, #f59e0b)",
       }}
-      onClick={() => router.push("/")}
+      onClick={handleLogout}
     />
   );
 }

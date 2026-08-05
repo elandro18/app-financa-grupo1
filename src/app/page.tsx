@@ -1,11 +1,32 @@
+"use client";
+
 import Image from "next/image";
 import { GiftIcon } from '@heroicons/react/24/outline'
 import { BanknotesIcon } from '@heroicons/react/24/outline'
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline'
 import { ComputerDesktopIcon } from '@heroicons/react/24/outline'
 import { PublicNavbar } from "./_components/PublicNavbar";
+import { RegisterModal } from "./components/RegisterModal";
+import { SuccessModal } from "./components/SuccessModal";
+import { useState } from "react";
+import { LoginModal } from "./components/LoginModal";
+import { useRouter } from "next/navigation";
+import { setSession } from "@/lib/session";
 
 export default function Home() {
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [loginError, setLoginError] = useState("");
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const router = useRouter();
+
+  const handleSuccessClose = () => {
+    setShowSuccessModal(false);
+    router.push("/home");
+  };
+
   return (
     <div className="pai min-h-screen bg-slate-100 overflow-x-hidden">
       <PublicNavbar />
@@ -54,8 +75,25 @@ export default function Home() {
             <h1 className="text-center text-lg pt-4">Seguro Dispositivos</h1>
             <p className="text-center text-sm pt-2">Seus dispositivos móveis (computador e laptop) protegidos por uma mensalidade simbólica.</p>
           </div>
-        </div>
-      </main>
+      {/* Modal de Registro */}
+      <RegisterModal
+        open={showRegisterModal}
+        onClose={() => setShowRegisterModal(false)}
+        onSuccess={() => {
+          setShowRegisterModal(false);
+          setSuccessMessage("Cadastro realizado com sucesso!");
+          setShowSuccessModal(true);
+        }}
+      />
+      {/* Modal de Sucesso */}
+      <SuccessModal
+        open={showSuccessModal}
+        message={successMessage}
+        onClose={handleSuccessClose}
+        redirectIn={2}
+      />
+      </div>
+    </main>
     </div>
     
   );

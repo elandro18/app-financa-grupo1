@@ -1,19 +1,23 @@
+"use client";
 import type { ReactNode } from "react";
 import { User } from "lucide-react";
-import { getCurrentUser } from "@/lib/auth";
+import { AccountProvider, useAccount } from "@/contexts/Account";
 import { TransactionsProvider } from "@/contexts/Transactions";
 import { DsLoader } from "@/components/DsLoader";
 import { Sidebar } from "./_components/Sidebar";
 import { LogoutButton } from "./_components/LogoutButton";
+import { AuthGuard } from "./_components/AuthGuard";
+import { getSessionUser } from "@/lib/session";
 
-export default function LoggedLayout({ children }: { children: ReactNode }) {
-  const { user, account, transactions } = getCurrentUser();
+function LoggedContent({ children }: { children: ReactNode }) {
+  const user = getSessionUser();
+  const { data, loading } = useAccount();
 
   return (
     <div className="min-h-screen w-full bg-[#e7efe5] flex flex-col">
       <header className="bg-[#374C34] text-white">
         <div className="max-w-7xl mx-auto px-8 py-5 flex items-center justify-end gap-4">
-          <span className="text-sm font-medium">{user.fullName}</span>
+          <span className="text-sm font-medium">{user?.fullName ?? "Teste"}</span>
           <span
             aria-hidden
             className="w-10 h-10 rounded-full border-2 border-[#f59e0b] flex items-center justify-center text-[#f59e0b]"
@@ -28,13 +32,29 @@ export default function LoggedLayout({ children }: { children: ReactNode }) {
         {/* Loads the DS Web Component library on the client side only */}
         <DsLoader />
         <Sidebar />
-        <TransactionsProvider
-          initialBalance={account.balance}
-          initialTransactions={transactions}
-        >
-          {children}
-        </TransactionsProvider>
+        {data ? (
+          <TransactionsProvider
+            initialBalance={data.account.balance}
+            initialTransactions={data.transactions}
+          >
+            {children}
+          </TransactionsProvider>
+        ) : (
+          <div className="flex items-center justify-center text-sm text-slate-500">
+            {loading ? "Carregando sua conta..." : "Não foi possível carregar sua conta."}
+          </div>
+        )}
       </div>
     </div>
+  );
+}
+
+export default function LoggedLayout({ children }: { children: ReactNode }) {
+  return (
+    <AuthGuard>
+      <AccountProvider>
+        <LoggedContent>{children}</LoggedContent>
+      </AccountProvider>
+    </AuthGuard>
   );
 }
