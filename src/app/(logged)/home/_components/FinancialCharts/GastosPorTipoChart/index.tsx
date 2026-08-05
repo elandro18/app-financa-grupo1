@@ -23,7 +23,12 @@ export function GastosPorTipoChart() {
   const total = useMemo(() => data.reduce((acc, slice) => acc + slice.total, 0), [data]);
 
   if (data.length === 0) {
-    return <EmptyChartState message="Sem saídas registradas" />;
+    return (
+      <EmptyChartState
+        title="Nenhuma saída registrada"
+        description="Cadastre uma transação de saída para ver a distribuição por tipo."
+      />
+    );
   }
 
   const legendFormatter = (value: string, entry: LegendPayload) => {

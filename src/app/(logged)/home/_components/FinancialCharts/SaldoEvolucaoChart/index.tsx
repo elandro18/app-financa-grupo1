@@ -37,7 +37,7 @@ export function SaldoEvolucaoChart() {
   );
 
   if (data.length === 0) {
-    return <EmptyChartState message="Sem dados para exibir" />;
+    return <EmptyChartState />;
   }
 
   return (

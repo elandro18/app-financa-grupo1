@@ -1,9 +1,12 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import { useTransactions } from "@/contexts/Transactions";
 import type { Transaction } from "@/app/(logged)/_components/TransactionDetailModal/types";
 import { setMaxDateInputInShadow } from "@/lib/webcomponent";
+
+const MAX_ITEMS = 7;
 
 /**
  * Thin wrapper that bridges bb-transaction-detail-modal with React context.
@@ -65,10 +68,12 @@ export function RecentTransactionsCard() {
 
   const listRef = useRef<HTMLElement>(null);
 
-  // Sync items array to bb-transaction-list via DOM property
+  const hasMore = transactions.length > MAX_ITEMS;
+
+  // Sync items array to bb-transaction-list via DOM property (limitado a 7)
   useEffect(() => {
     const el = listRef.current as any;
-    if (el) el.items = transactions;
+    if (el) el.items = transactions.slice(0, MAX_ITEMS);
   }, [transactions]);
 
   // Wire transaction-select on bb-transaction-list
@@ -93,9 +98,19 @@ export function RecentTransactionsCard() {
 
   return (
     <>
-      <aside className="bg-white rounded-md p-6">
+      <aside className="bg-white rounded-md p-6 flex flex-col self-stretch">
         <h2 className="text-lg font-bold mb-5">Últimas transações</h2>
         <bb-transaction-list ref={listRef} />
+        {hasMore && (
+          <div className="mt-auto pt-4 border-t border-gray-100 text-center">
+            <Link
+              href="/extrato"
+              className="text-sm font-semibold text-[var(--bb-primary,#374C34)] hover:underline"
+            >
+              Ver todas as transações no extrato →
+            </Link>
+          </div>
+        )}
       </aside>
 
       {/* Only mount the detail modal WC when a transaction is selected,
