@@ -51,12 +51,12 @@ export default function Servicos() {
           Tudo o que você precisa para cuidar do seu dinheiro em um só lugar.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {SERVICES.map(({ Icon, title, description }) => (
-            <div key={title} className="bg-white rounded-md p-6 flex flex-col gap-2">
-              <Icon className="h-9 w-9 text-[var(--bb-warning,#f59e0b)]" />
-              <h2 className="text-lg font-bold text-[var(--bb-dark,#332E2B)]">{title}</h2>
-              <p className="text-sm text-gray-600 leading-relaxed">{description}</p>
+            <div key={title} className="bg-white rounded-md p-8 flex flex-col gap-3">
+              <Icon className="h-11 w-11 text-[var(--bb-warning,#f59e0b)]" />
+              <h2 className="text-xl font-bold text-[var(--bb-dark,#332E2B)]">{title}</h2>
+              <p className="text-base text-gray-600 leading-relaxed">{description}</p>
             </div>
           ))}
         </div>

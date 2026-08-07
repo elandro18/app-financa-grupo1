@@ -14,7 +14,7 @@ export default function Sobre() {
           Sobre o <span className="text-[var(--bb-warning,#f59e0b)]">Bytebank</span>
         </h1>
 
-        <div className="bg-white rounded-md p-8 flex flex-col gap-4 text-gray-700 leading-relaxed">
+        <div className="bg-white rounded-md p-10 flex flex-col gap-5 text-base text-gray-700 leading-relaxed">
           <p>
             O Bytebank é um banco digital feito para dar a você mais liberdade e controle sobre
             a sua vida financeira. Sem agências, sem burocracia e sem tarifas escondidas — tudo
@@ -31,18 +31,18 @@ export default function Sobre() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
-          <div className="bg-white rounded-md p-6 text-center">
-            <p className="text-3xl font-bold text-[var(--bb-primary,#374C34)]">100%</p>
-            <p className="text-sm text-gray-600 mt-1">Digital, sem agências</p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-6">
+          <div className="bg-white rounded-md p-8 text-center">
+            <p className="text-4xl font-bold text-[var(--bb-primary,#374C34)]">100%</p>
+            <p className="text-base text-gray-600 mt-2">Digital, sem agências</p>
           </div>
-          <div className="bg-white rounded-md p-6 text-center">
-            <p className="text-3xl font-bold text-[var(--bb-primary,#374C34)]">R$ 0</p>
-            <p className="text-sm text-gray-600 mt-1">De tarifa de manutenção</p>
+          <div className="bg-white rounded-md p-8 text-center">
+            <p className="text-4xl font-bold text-[var(--bb-primary,#374C34)]">R$ 0</p>
+            <p className="text-base text-gray-600 mt-2">De tarifa de manutenção</p>
           </div>
-          <div className="bg-white rounded-md p-6 text-center">
-            <p className="text-3xl font-bold text-[var(--bb-primary,#374C34)]">24/7</p>
-            <p className="text-sm text-gray-600 mt-1">Sua conta sempre disponível</p>
+          <div className="bg-white rounded-md p-8 text-center">
+            <p className="text-4xl font-bold text-[var(--bb-primary,#374C34)]">24/7</p>
+            <p className="text-base text-gray-600 mt-2">Sua conta sempre disponível</p>
           </div>
         </div>
       </main>
