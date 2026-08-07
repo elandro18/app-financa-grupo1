@@ -1,59 +1,37 @@
-// src/app/cadastro/page.tsx
 "use client";
 
-import { useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { CircleCheck } from "lucide-react";
-import { RegisterModal } from "../components/RegisterModal";
-
+import { PublicNavbar } from "@/app/_components/PublicNavbar";
+import { RegisterForm } from "../components/RegisterForm";
 
 export default function Cadastro() {
-  const [showRegisterModal, setShowRegisterModal] = useState(true);
-  const submittedRef = useRef(false);
-  const router = useRouter();
-
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      {showRegisterModal ? (
-        <RegisterModal
-          open={showRegisterModal}
-          onClose={() => {
-            // X/Escape/overlay fecha e volta para a página inicial;
-            // após submit, mantém a mensagem de sucesso.
-            if (submittedRef.current) {
-              submittedRef.current = false;
-              setShowRegisterModal(false);
-            } else {
-              router.push("/");
-            }
-          }}
-          onSuccess={() => {
-            submittedRef.current = true;
-          }}
-        />
-      ) : (
-        <div className="w-full max-w-md bg-white rounded-[var(--bb-radius-lg)] shadow-[var(--bb-shadow-md)] p-8 text-center">
-          <div
-            aria-hidden
-            className="h-20 flex items-center justify-center"
-          >
-            <CircleCheck size={48} className="text-[var(--bb-success)]" />
-          </div>
-          <p className="text-[var(--bb-dark)] font-semibold text-lg mb-1">
-            Cadastro realizado com sucesso!
+    <div className="min-h-screen bg-[#e7efe5] flex flex-col">
+      <PublicNavbar showRegister={false} />
+
+      <main className="flex-1 flex items-center justify-center px-4 py-10">
+        <div className="w-full max-w-md bg-white rounded-md shadow-sm p-8">
+          <h1 className="text-2xl font-bold text-center text-[var(--bb-dark,#332E2B)] mb-1">
+            Criar conta
+          </h1>
+          <p className="text-center text-gray-500 text-sm mb-6">
+            Preencha os campos abaixo para abrir sua conta.
           </p>
-          <p className="text-gray-500 text-sm mb-6">
-            Bem-vindo ao ByteFinanceBank. Agora é só acessar sua conta.
+
+          {/* Ao concluir, o RegisterForm faz auto-login e redireciona para /home */}
+          <RegisterForm />
+
+          <p className="text-center text-sm text-gray-500 mt-6">
+            Já tem conta?{" "}
+            <Link
+              href="/login"
+              className="font-semibold text-[var(--bb-primary,#374C34)] hover:underline"
+            >
+              Entrar
+            </Link>
           </p>
-          <Link
-            href="/login"
-            className="inline-block px-4 py-2 bg-[var(--bb-warning)] text-[var(--bb-dark)] rounded font-bold hover:opacity-90 cursor-pointer"
-          >
-            Voltar para login
-          </Link>
         </div>
-      )}
+      </main>
     </div>
   );
 }

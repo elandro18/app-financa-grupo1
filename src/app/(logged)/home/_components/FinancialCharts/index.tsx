@@ -9,7 +9,7 @@ export function FinancialCharts() {
   const ActiveChart = active.Component;
 
   return (
-    <section className="bg-white rounded-md p-8">
+    <section className="bg-white rounded-md p-8 flex-1">
       <h2 className="text-lg font-bold mb-6">Análise financeira</h2>
 
       <div className="flex gap-2 border-b border-gray-200 mb-6">

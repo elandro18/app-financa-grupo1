@@ -13,7 +13,7 @@ export default function HomePage() {
   const { data } = useAccount();
 
   return (
-    <div className="grid grid-cols-[1fr_300px] gap-6 h-full items-start">
+    <div className="grid grid-cols-[1fr_300px] gap-6 h-full items-stretch">
       <main className="flex flex-col gap-6">
         <BalanceCard
           greetingName={user?.firstName ?? "Teste"}

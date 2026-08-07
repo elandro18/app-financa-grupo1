@@ -1,6 +1,3 @@
-
-
-
 import { REGISTER_VALIDATIONS } from "../constants";
 import type { RegisterFormData } from "../types";
 
@@ -23,14 +20,16 @@ export const validateForm = (data: RegisterFormData): Record<string, string> => 
     errors.password = `Senha deve ter pelo menos ${REGISTER_VALIDATIONS.minPasswordLength} caracteres`;
   }
 
-  if (!data.birthDate) {
-    errors.birthDate = "Data de nascimento é obrigatória";
-  } else {
-    const date = new Date(data.birthDate);
-    const today = new Date();
-    if (date >= today) {
-      errors.birthDate = "Data de nascimento inválida";
-    }
+  if (!data.agency.trim()) {
+    errors.agency = "Agência é obrigatória";
+  }
+
+  if (!data.bankAccount.trim()) {
+    errors.bankAccount = "Conta bancária é obrigatória";
+  }
+
+  if (!data.terms) {
+    errors.terms = "É necessário aceitar os termos";
   }
 
   return errors;

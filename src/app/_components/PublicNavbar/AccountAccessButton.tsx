@@ -18,7 +18,7 @@ export function AccountAccessButton() {
     <button
       type="button"
       onClick={handleClick}
-      className="px-3 py-2 text-sm sm:px-4 sm:py-2 border border-white text-white rounded font-bold hover:bg-white hover:text-[var(--bb-dark)] cursor-pointer"
+      className="px-3 py-2 text-base sm:px-4 sm:py-2 border border-white text-white rounded font-bold hover:bg-white hover:text-[var(--bb-dark)] cursor-pointer"
     >
       Já tenho conta
     </button>

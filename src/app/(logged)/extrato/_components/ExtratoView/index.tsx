@@ -172,12 +172,12 @@ export default function ExtratoView() {
 
   return (
     <>
-      <main className="bg-white/60 rounded-md p-10 max-w-xl w-full">
+      <main className="bg-white rounded-md p-10 w-full max-w-2xl">
         <h1 className="text-2xl font-bold text-center mb-8">Extrato</h1>
 
         {/* Busca só faz sentido quando há transações cadastradas */}
         {!isEmpty && (
-          <div className="mb-4">
+          <div className="mb-8">
             <input
               aria-label="Pesquisar transações"
               placeholder="Pesquisar por descrição ou tipo"
@@ -201,7 +201,7 @@ export default function ExtratoView() {
 
         {/* Paginação só quando há mais de uma página */}
         {!isEmpty && totalPages > 1 && (
-          <div className="mt-6 flex flex-col items-center gap-3">
+          <div className="mt-10 flex flex-col items-center gap-3 border-t border-gray-100 pt-6">
             <div className="flex flex-wrap items-center justify-center gap-2">
               {getPageItems(currentPage, totalPages).map((page, index) =>
                 page === "ellipsis" ? (

@@ -118,7 +118,7 @@ export function NovaTransacaoForm() {
   }, [router]);
 
   return (
-    <main className="bg-white/60 rounded-md p-8 md:p-10 w-full max-w-2xl">
+    <main className="bg-white rounded-md p-8 md:p-10 w-full max-w-2xl">
       <h1 className="text-2xl font-bold text-center mb-8">Nova transação</h1>
       <bb-new-transaction-list ref={ref} />
     </main>
