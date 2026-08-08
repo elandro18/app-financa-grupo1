@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTransactions } from "@/contexts/Transactions";
 import { useAccount } from "@/contexts/Account";
 import { getCurrentUserId } from "@/lib/session";
 import { fileToApiAttachment, toClientAttachments } from "@/lib/transactionsApi";
+import { ErrorToast } from "@/app/(logged)/_components/ErrorToast";
 import http from "@/http";
 
 // Rótulos exibidos no web component -> valores do enum TransactionType da API.
@@ -25,6 +26,7 @@ export function NovaTransacaoForm() {
   const { addTransaction } = useTransactions();
   const { data: accountData } = useAccount();
   const ref = useRef<HTMLElement>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   // Stable refs so the effect closure never goes stale
   const addTransactionRef = useRef(addTransaction);
@@ -37,6 +39,7 @@ export function NovaTransacaoForm() {
     if (!el) return;
 
     const handleSubmit = async (e: Event) => {
+      setSubmitError(null);
       const { type, amount, date, description, agency, account, pixKey, attachments } = (e as CustomEvent).detail as {
         type: string;
         amount: number;
@@ -89,6 +92,9 @@ export function NovaTransacaoForm() {
         createdId = responseAxios.data?._id;
       } catch (error) {
         console.error("Erro ao criar transação:", error);
+        setSubmitError(
+          "Não foi possível salvar a transação. Verifique os dados e tente novamente."
+        );
         return;
       }
 
@@ -120,6 +126,9 @@ export function NovaTransacaoForm() {
     <main className="bg-white rounded-md p-8 md:p-10 w-full max-w-2xl">
       <h1 className="text-2xl font-bold text-center mb-8">Nova transação</h1>
       <bb-new-transaction-list ref={ref} />
+      {submitError && (
+        <ErrorToast message={submitError} onClose={() => setSubmitError(null)} />
+      )}
     </main>
   );
 }

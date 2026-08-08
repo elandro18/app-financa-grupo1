@@ -13,6 +13,7 @@ import {
   updateTransactionApi,
   deleteTransactionApi,
 } from "@/lib/transactionsApi";
+import { ErrorToast } from "@/app/(logged)/_components/ErrorToast";
 
 const MAX_ITEMS = 7;
 
@@ -31,11 +32,13 @@ function DetailModal({
   transaction,
   onSave,
   onDelete,
+  onError,
   onClose,
 }: {
   transaction: Transaction;
   onSave: (id: string, data: SaveData) => void;
   onDelete: (id: string) => void;
+  onError: (message: string) => void;
   onClose: () => void;
 }) {
   const ref = useRef<HTMLElement>(null);
@@ -43,6 +46,8 @@ function DetailModal({
   onSaveRef.current = onSave;
   const onDeleteRef = useRef(onDelete);
   onDeleteRef.current = onDelete;
+  const onErrorRef = useRef(onError);
+  onErrorRef.current = onError;
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
 
@@ -75,6 +80,7 @@ function DetailModal({
         });
       } catch (err) {
         console.error("Erro ao atualizar transação:", err);
+        onErrorRef.current("Não foi possível salvar a transação. Tente novamente.");
         return;
       }
       onSaveRef.current(id, { description, amount, date, attachments: finalClient });
@@ -85,6 +91,7 @@ function DetailModal({
         await deleteTransactionApi(id);
       } catch (err) {
         console.error("Erro ao excluir transação:", err);
+        onErrorRef.current("Não foi possível excluir a transação. Tente novamente.");
         return;
       }
       onDeleteRef.current(id);
@@ -108,6 +115,7 @@ export function RecentTransactionsCard() {
   const { transactions, updateTransaction, deleteTransaction } =
     useTransactions();
   const [activeTx, setActiveTx] = useState<Transaction | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const listRef = useRef<HTMLElement>(null);
 
@@ -163,9 +171,12 @@ export function RecentTransactionsCard() {
           transaction={activeTx}
           onSave={handleSave}
           onDelete={handleDelete}
+          onError={setError}
           onClose={() => setActiveTx(null)}
         />
       )}
+
+      {error && <ErrorToast message={error} onClose={() => setError(null)} />}
     </>
   );
 }
