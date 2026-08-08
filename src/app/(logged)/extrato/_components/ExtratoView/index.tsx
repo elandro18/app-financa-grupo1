@@ -12,7 +12,7 @@ import {
   updateTransactionApi,
   deleteTransactionApi,
 } from "@/lib/transactionsApi";
-import { ErrorToast } from "@/app/(logged)/_components/ErrorToast";
+import { Toast, type ToastVariant } from "@/app/(logged)/_components/Toast";
 
 type SaveData = {
   description: string;
@@ -154,7 +154,7 @@ export default function ExtratoView() {
   const { transactions, updateTransaction, deleteTransaction } =
     useTransactions();
   const [activeTx, setActiveTx] = useState<Transaction | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [toast, setToast] = useState<{ message: string; variant: ToastVariant } | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -214,11 +214,13 @@ export default function ExtratoView() {
   const handleSave = (id: string, data: SaveData) => {
     updateTransaction(id, data);
     setActiveTx(null);
+    setToast({ message: "Transação atualizada com sucesso.", variant: "success" });
   };
 
   const handleDelete = (id: string) => {
     deleteTransaction(id);
     setActiveTx(null);
+    setToast({ message: "Transação excluída com sucesso.", variant: "success" });
   };
 
   return (
@@ -305,12 +307,14 @@ export default function ExtratoView() {
           transaction={activeTx}
           onSave={handleSave}
           onDelete={handleDelete}
-          onError={setError}
+          onError={(message) => setToast({ message, variant: "error" })}
           onClose={() => setActiveTx(null)}
         />
       )}
 
-      {error && <ErrorToast message={error} onClose={() => setError(null)} />}
+      {toast && (
+        <Toast message={toast.message} variant={toast.variant} onClose={() => setToast(null)} />
+      )}
     </>
   );
 }

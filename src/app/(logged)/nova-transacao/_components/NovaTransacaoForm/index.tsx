@@ -6,7 +6,7 @@ import { useTransactions } from "@/contexts/Transactions";
 import { useAccount } from "@/contexts/Account";
 import { getCurrentUserId } from "@/lib/session";
 import { fileToApiAttachment, toClientAttachments } from "@/lib/transactionsApi";
-import { ErrorToast } from "@/app/(logged)/_components/ErrorToast";
+import { Toast } from "@/app/(logged)/_components/Toast";
 import http from "@/http";
 
 // Rótulos exibidos no web component -> valores do enum TransactionType da API.
@@ -127,7 +127,7 @@ export function NovaTransacaoForm() {
       <h1 className="text-2xl font-bold text-center mb-8">Nova transação</h1>
       <bb-new-transaction-list ref={ref} />
       {submitError && (
-        <ErrorToast message={submitError} onClose={() => setSubmitError(null)} />
+        <Toast message={submitError} variant="error" onClose={() => setSubmitError(null)} />
       )}
     </main>
   );
