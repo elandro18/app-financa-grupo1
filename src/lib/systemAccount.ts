@@ -11,6 +11,7 @@ type BackendTransaction = {
   agency?: string;
   account?: string;
   pixKey?: string;
+  attachments?: { name: string; type: string; url: string }[];
 };
 
 export type CurrentUserData = {
@@ -51,6 +52,13 @@ function mapTransaction(tx: BackendTransaction): Transaction {
     agency: tx.agency,
     account: tx.account,
     pixKey: tx.pixKey,
+    attachments: (tx.attachments ?? []).map((a, i) => ({
+      id: `${tx._id}-${i}`,
+      name: a.name,
+      size: 0,
+      type: a.type,
+      url: a.url,
+    })),
   };
 }
 

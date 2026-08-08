@@ -6,7 +6,7 @@ import type { Transaction } from "@/app/(logged)/_components/TransactionDetailMo
 type ContextValue = {
   transactions: Transaction[];
   balance: number;
-  addTransaction: (tx: Omit<Transaction, "id">) => void;
+  addTransaction: (tx: Omit<Transaction, "id"> & { id?: string }) => void;
   updateTransaction: (id: string, partial: Partial<Omit<Transaction, "id">>) => void;
   deleteTransaction: (id: string) => void;
 };
@@ -33,8 +33,8 @@ export function TransactionsProvider({
   const baseline = initialBalance - sumAmounts(initialTransactions);
   const balance = baseline + sumAmounts(transactions);
 
-  const addTransaction = (tx: Omit<Transaction, "id">) => {
-    setTransactions((prev) => [{ ...tx, id: crypto.randomUUID() }, ...prev]);
+  const addTransaction = (tx: Omit<Transaction, "id"> & { id?: string }) => {
+    setTransactions((prev) => [{ ...tx, id: tx.id ?? crypto.randomUUID() }, ...prev]);
   };
 
   const updateTransaction = (id: string, partial: Partial<Omit<Transaction, "id">>) => {

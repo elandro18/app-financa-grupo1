@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useTransactions } from "@/contexts/Transactions";
 import { useAccount } from "@/contexts/Account";
 import { getCurrentUserId } from "@/lib/session";
+import { fileToApiAttachment, toClientAttachments } from "@/lib/transactionsApi";
 import http from "@/http";
 
 // Rótulos exibidos no web component -> valores do enum TransactionType da API.
@@ -48,13 +49,7 @@ export function NovaTransacaoForm() {
       };
 
       const files = attachments ?? [];
-      const attachmentMeta = files.map((file) => ({
-        id: crypto.randomUUID(),
-        name: file.name,
-        size: file.size,
-        type: file.type,
-        url: URL.createObjectURL(file),
-      }));
+      const apiAttachments = await Promise.all(files.map(fileToApiAttachment));
 
       // Saque and Depósito to own account don't carry ag/conta from the WC —
       // enrich here with the logged-in user's own account data.
@@ -64,6 +59,7 @@ export function NovaTransacaoForm() {
       const enrichedAgency = ownAccount ? ownAccount.agency : agency;
       const enrichedAccount = ownAccount ? ownAccount.number : account;
 
+      let createdId: string | undefined;
       try {
         // Garante que amount sempre chegue como número positivo (o backend
         // valida com @IsNumber/@IsPositive/@IsNotEmpty).
@@ -82,6 +78,7 @@ export function NovaTransacaoForm() {
           agency: enrichedAgency,
           account: enrichedAccount,
           pixKey: pixKey,
+          attachments: apiAttachments,
         };
 
         const responseAxios = await http.post("/transactions", payload);
@@ -89,12 +86,14 @@ export function NovaTransacaoForm() {
         if (responseAxios.status < 200 || responseAxios.status >= 300) {
           throw new Error("Falha ao criar transação");
         }
+        createdId = responseAxios.data?._id;
       } catch (error) {
         console.error("Erro ao criar transação:", error);
         return;
       }
 
       addTransactionRef.current({
+        id: createdId,
         type,
         amount,
         date: toDisplayDate(date),
@@ -102,7 +101,7 @@ export function NovaTransacaoForm() {
         agency: enrichedAgency,
         account: enrichedAccount,
         pixKey,
-        attachments: attachmentMeta,
+        attachments: toClientAttachments(apiAttachments, createdId ?? ""),
       });
       router.push("/home");
     };

@@ -5,8 +5,23 @@ import Link from "next/link";
 import { useTransactions } from "@/contexts/Transactions";
 import type { Transaction } from "@/app/(logged)/_components/TransactionDetailModal/types";
 import { setMaxDateInputInShadow } from "@/lib/webcomponent";
+import {
+  fileToApiAttachment,
+  toApiAttachments,
+  toClientAttachments,
+  toIsoDate,
+  updateTransactionApi,
+  deleteTransactionApi,
+} from "@/lib/transactionsApi";
 
 const MAX_ITEMS = 7;
+
+type SaveData = {
+  description: string;
+  amount: number;
+  date: string;
+  attachments: Transaction["attachments"];
+};
 
 /**
  * Thin wrapper that bridges bb-transaction-detail-modal with React context.
@@ -19,7 +34,7 @@ function DetailModal({
   onClose,
 }: {
   transaction: Transaction;
-  onSave: (id: string, description: string, amount: number, date: string) => void;
+  onSave: (id: string, data: SaveData) => void;
   onDelete: (id: string) => void;
   onClose: () => void;
 }) {
@@ -39,12 +54,40 @@ function DetailModal({
     el.open = true;
     setMaxDateInputInShadow(el);
 
-    const handleSave = (e: Event) => {
-      const { id, description, amount, date } = (e as CustomEvent).detail;
-      onSaveRef.current(id, description, amount, date);
+    const handleSave = async (e: Event) => {
+      const { id, description, amount, date, newAttachments } = (e as CustomEvent).detail as {
+        id: string;
+        description: string;
+        amount: number;
+        date: string;
+        newAttachments?: File[];
+      };
+      const newFile = newAttachments?.[0];
+      const newApi = newFile ? [await fileToApiAttachment(newFile)] : null;
+      const apiAtts = newApi ?? toApiAttachments(transaction.attachments);
+      const finalClient = newApi ? toClientAttachments(newApi, id) : transaction.attachments ?? [];
+      try {
+        await updateTransactionApi(id, {
+          description,
+          amount,
+          date: toIsoDate(date),
+          attachments: apiAtts,
+        });
+      } catch (err) {
+        console.error("Erro ao atualizar transação:", err);
+        return;
+      }
+      onSaveRef.current(id, { description, amount, date, attachments: finalClient });
     };
-    const handleDelete = (e: Event) => {
-      onDeleteRef.current((e as CustomEvent).detail.id);
+    const handleDelete = async (e: Event) => {
+      const id = (e as CustomEvent).detail.id as string;
+      try {
+        await deleteTransactionApi(id);
+      } catch (err) {
+        console.error("Erro ao excluir transação:", err);
+        return;
+      }
+      onDeleteRef.current(id);
     };
     const handleClose = () => onCloseRef.current();
 
@@ -86,8 +129,8 @@ export function RecentTransactionsCard() {
     return () => el.removeEventListener("transaction-select", handler);
   }, []);
 
-  const handleSave = (id: string, description: string, amount: number, date: string) => {
-    updateTransaction(id, { description, amount, date });
+  const handleSave = (id: string, data: SaveData) => {
+    updateTransaction(id, data);
     setActiveTx(null);
   };
 
